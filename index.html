@@ -36,7 +36,7 @@
 <h3>
 <a id="download" class="anchor" href="#download" aria-hidden="true"><span class="octicon octicon-link"></span></a>Download</h3>
 
-<p>The most current version of <code>dynsimpie</code> is available here. The program can also be found on the <a href="http://EconPapers.repec.org/RePEc:boc:bocode:s458074">SSC RePEc archive</a>.</p>
+<p>The most current version of <code>dynsimpie</code> is available on this page. The program can also be found on the <a href="http://EconPapers.repec.org/RePEc:boc:bocode:s458074">SSC RePEc archive</a>.</p>
 
 <h3>
 <a id="description" class="anchor" href="#description" aria-hidden="true"><span class="octicon octicon-link"></span></a>Description</h3>
@@ -45,6 +45,8 @@
 
 <h3>
 <a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h3>
+
+<p>To use <code>dynsimpie</code>, the user must first download and install the Clarify package by King, Tomz, and Wittenberg (2000) (<code>estsimp</code>, <code>setx</code>, and <code>tlogit</code>). In addition, each variable listed in <code>dvs(varlist)</code> must be expressed in compositional form; this is easily performed using <code>tlogit</code>.</p>
 
 <h3>
 <a id="reference" class="anchor" href="#reference" aria-hidden="true"><span class="octicon octicon-link"></span></a>Reference</h3>
@@ -94,20 +96,29 @@ College Station, TX</p>
 
 <p>a 1 standard deviation increase of labour as best manager of the economy at t = 9 with 90% cis</p>
 
-<pre><code>dynsimpie all_pidW all_LabLeaderEval_W all_ConLeaderEval_W all_LDLeaderEval_W all_nat_retW, dvs(Con_Lab lDM_Lab) t(9) shock(0.054) shockvar(all_b_mii_lab_pct) sig(90)
+<pre><code>dynsimpie all_pidW all_LabLeaderEval_W all_ConLeaderEval_W all_LDLeaderEval_W all_nat_retW, ///
+ dvs(Con_Lab lDM_Lab) t(9) shock(0.054) shockvar(all_b_mii_lab_pct) sig(90)
 </code></pre>
 
 <p>open and graph the results</p>
 
 <pre><code>use dynsimpie_results.dta, clear
-twoway rspike var1_pie_ul_ var1_pie_ll_ time || rspike var2_pie_ul_ var2_pie_ll_ time || rspike var3_pie_ul_ var3_pie_ll_ time || scatter mid1 time || scatter mid2 time || scatter mid3 time, legend( order(4 "Conservatives" 5 "Lib-Dems our")) xtitle("Month") ytitle("Predicted Proportion of Support")
+twoway rspike var1_pie_ul_ var1_pie_ll_ time || rspike var2_pie_ul_ var2_pie_ll_ time ||   ///
+ rspike var3_pie_ul_ var3_pie_ll_ time || scatter mid1 time || scatter mid2 time ||        ///
+ scatter mid3 time, legend( order(4 "Conservatives" 5 "Lib-Dems our")) xtitle("Month")     ///
+ ytitle("Predicted Proportion of Support")
 </code></pre>
 
 <p>a 1 std. dev. increase of labour as best manager of the economy along with a 1 std. dev increase in labour leader evaluations at time t= 18 and range t=45</p>
 
-<pre><code>dynsimpie all_pidW all_ConLeaderEval_W all_LDLeaderEval_W all_nat_retW , dvs(Con_Lab lDM_Lab) t(18) range(45) shock(0.054) shockvar(all_b_mii_lab_pct) shockvar2(all_LabLeaderEval_W) shock2(0.367)
+<pre><code>dynsimpie all_pidW all_ConLeaderEval_W all_LDLeaderEval_W all_nat_retW ,                  ///
+ dvs(Con_Lab lDM_Lab) t(18) range(45) shock(0.054) shockvar(all_b_mii_lab_pct)            ///
+ shockvar2(all_LabLeaderEval_W) shock2(0.367)
 use dynsimpie_results.dta, clear
-twoway rspike var1_pie_ul_ var1_pie_ll_ time || rspike var2_pie_ul_ var2_pie_ll_ time || rspike var3_pie_ul_ var3_pie_ll_ time || scatter mid1 time || scatter mid2 time || scatter mid3 time, legend( order(4 "Conservatives" 5 "Lib-Dems our")) xtitle("Month") ytitle("Predicted Proportion of Support")
+twoway rspike var1_pie_ul_ var1_pie_ll_ time || rspike var2_pie_ul_ var2_pie_ll_ time ||  ///
+ rspike var3_pie_ul_ var3_pie_ll_ time || scatter mid1 time || scatter mid2 time ||       ///
+ scatter mid3 time, legend( order(4 "Conservatives" 5 "Lib-Dems our")) xtitle("Month")    ///
+ ytitle("Predicted Proportion of Support")
 </code></pre>
       </section>
       <footer>
