@@ -62,18 +62,18 @@
 <h3>
 <a id="authors" class="anchor" href="#authors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors</h3>
 
-<p>Andrew Q. Philips,
-Texas A&amp;M University,
-College Station, TX,
-aphilips [AT] pols.tamu.edu</p>
+<p>...<a href="http://people.tamu.edu/%7Eaphilips/">Andrew Q. Philips</a>..
+...Texas A&amp;M University..
+...College Station, TX..
+...aphilips [AT] pols.tamu.edu</p>
 
-<p>Amanda Rutherford,
-Indiana University,
-Bloomington, IN</p>
+<p>...Amanda Rutherford..
+...Indiana University..
+...Bloomington, IN</p>
 
-<p>Guy D. Whitten,
-Texas A&amp;M University,
-College Station, TX</p>
+<p>...Guy D. Whitten..
+...Texas A&amp;M University..
+...College Station, TX</p>
 
 <h3>
 <a id="citations" class="anchor" href="#citations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Citations</h3>
@@ -105,9 +105,11 @@ College Station, TX</p>
 <pre><code>use dynsimpie_results.dta, clear
 twoway rspike var1_pie_ul_ var1_pie_ll_ time || rspike var2_pie_ul_ var2_pie_ll_ time ||   ///
  rspike var3_pie_ul_ var3_pie_ll_ time || scatter mid1 time || scatter mid2 time ||        ///
- scatter mid3 time, legend( order(4 "Conservatives" 5 "Lib-Dems our")) xtitle("Month")     ///
+ scatter mid3 time, legend( order(4 "Conservatives" 5 "Lib-Dems" 6 "Labour")) xtitle("Month")     ///
  ytitle("Predicted Proportion of Support")
 </code></pre>
+
+<p><img src="https://github.com/andyphilips/dynsimpie/blob/gh-pages/figures/graph1.png" alt="alt text" title="First simulation results"></p>
 
 <p>a 1 std. dev. increase of labour as best manager of the economy along with a 1 std. dev increase in labour leader evaluations at time t= 18 and range t=45</p>
 
@@ -117,9 +119,11 @@ twoway rspike var1_pie_ul_ var1_pie_ll_ time || rspike var2_pie_ul_ var2_pie_ll_
 use dynsimpie_results.dta, clear
 twoway rspike var1_pie_ul_ var1_pie_ll_ time || rspike var2_pie_ul_ var2_pie_ll_ time ||  ///
  rspike var3_pie_ul_ var3_pie_ll_ time || scatter mid1 time || scatter mid2 time ||       ///
- scatter mid3 time, legend( order(4 "Conservatives" 5 "Lib-Dems our")) xtitle("Month")    ///
+ scatter mid3 time, legend( order(4 "Conservatives" 5 "Lib-Dems" 6 "Labour")) xtitle("Month")    ///
  ytitle("Predicted Proportion of Support")
 </code></pre>
+
+<p><img src="https://github.com/andyphilips/dynsimpie/blob/gh-pages/figures/graph2.png" alt="alt text" title="Second simulation results"></p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/andyphilips">andyphilips</a></p>
