@@ -41,23 +41,23 @@
 <h3>
 <a id="description" class="anchor" href="#description" aria-hidden="true"><span class="octicon octicon-link"></span></a>Description</h3>
 
-<p><code>dynsimpie</code> is a program to dynamically examine compositional dependent variables, first detailed in Philips, Rutherford, and Whitten (2015a) and used in Philips, Rutherford, and Whitten (2015b). Their modeling strategy uses an error correction model within a seemingly unrelated regression to simulate dynamic changes in each compositional dependent variable in response to a counterfactual "shock" to an independent variable during the simulation. Up to seven dependent variables may be modeled. Following the work of Aitchison (1986), the dependent variables are first expressed using a log-ratio transformation. <code>dynsimpie</code> then models the first differenced series of each compositional ratios as a function of their lag, as well as the lag and first difference of a vector of independent variables. Expected values are calculated, and, since compositional log ratios are not particularly intuitive, these are then "un-transformed" and the predicted average proportion of each dependent variable over time is saved to a dataset, along with associated confidence intervals.</p>
+<p><code>dynsimpie</code> is a program to dynamically examine compositional dependent variables, detailed in Philips, Rutherford, and Whitten (2016) and used in Philips, Rutherford, and Whitten (2015). Their modeling strategy uses an error correction model within a seemingly unrelated regression to simulate dynamic changes in each compositional dependent variable in response to a counterfactual "shock" to an independent variable during the simulation. Up to seven dependent variables may be modeled. Following the work of Aitchison (1986), the program first expresses the dependent variables in compositional form using a log-ratio transformation. <code>dynsimpie</code> then models the first differenced series of each compositional ratio as a function of their lag, as well as the lag and first difference of a vector of independent variables. Expected values are calculated, and, since compositional log ratios are not particularly intuitive, these are then "un-transformed" and the predicted average proportion of each dependent variable over time is either graphed and/or saved to a dataset, along with associated confidence intervals.</p>
 
 <h3>
 <a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h3>
 
-<p>To use <code>dynsimpie</code>, the user must first download and install the Clarify package by King, Tomz, and Wittenberg (2000) (<code>estsimp</code>, <code>setx</code>, and <code>tlogit</code>). In addition, each variable listed in <code>dvs(varlist)</code> must be expressed in compositional form; this is easily performed using <code>tlogit</code>.</p>
+<p>To use <code>dynsimpie</code>, the user must first download and install the Clarify package by King, Tomz, and Wittenberg (2000) (<code>estsimp</code> and <code>setx</code>).</p>
 
 <h3>
 <a id="reference" class="anchor" href="#reference" aria-hidden="true"><span class="octicon octicon-link"></span></a>Reference</h3>
 
 <p>If you use <code>dynsimpie</code>, please cite us:</p>
 
-<p>Philips, Andrew Q., Amanda Rutherford, and Guy D. Whitten. 2015. "DYNSIMPIE: A program to examine dynamic compositional dependent variables."</p>
+<p>Philips, Andrew Q., Amanda Rutherford, and Guy D. Whitten. 2016. "DYNSIMPIE: A program to examine dynamic compositional dependent variables." Working Paper.</p>
 
 <p>and</p>
 
-<p>Philips, Andrew Q., Amanda Rutherford, and Guy D. Whitten. 2015a. "<a href="http://dx.doi.org/10.1111/ajps.12204">Dynamic pie: A strategy for modeling trade-offs in compositional variables over time</a>." American Journal of Political Science 1-16.</p>
+<p>Philips, Andrew Q., Amanda Rutherford, and Guy D. Whitten. 2016. "<a href="http://dx.doi.org/10.1111/ajps.12204">Dynamic pie: A strategy for modeling trade-offs in compositional variables over time</a>." American Journal of Political Science  60(1): 268-283.</p>
 
 <h3>
 <a id="authors" class="anchor" href="#authors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors</h3>
@@ -73,27 +73,29 @@
 
 <p>Aitchison, John. 1986. The statistical analysis of compositional data. Chapman &amp; Hall, Ltd.</p>
 
-<p>Philips, Andrew Q., Amanda Rutherford, and Guy D. Whitten. 2015a. "<a href="http://dx.doi.org/10.1111/ajps.12204">Dynamic pie: A strategy for modeling trade-offs in compositional variables over time</a>." American Journal of Political Science 1-16.</p>
+<p>Philips, Andrew Q., Amanda Rutherford, and Guy D. Whitten. 2016. "<a href="http://dx.doi.org/10.1111/ajps.12204">Dynamic pie: A strategy for modeling trade-offs in compositional variables over time</a>." American Journal of Political Science  60(1): 268-283.</p>
 
-<p>Philips, Andrew Q., Amanda Rutherford, and Guy D. Whitten. 2015b. "<a href="http://dx.doi.org/10.1016/j.electstud.2015.03.019">The dynamic battle for pieces of pie--Modeling party support in multi-party nations</a>." Electoral Studies 39:264-274.</p>
+<p>Philips, Andrew Q., Amanda Rutherford, and Guy D. Whitten. 2015. "<a href="http://dx.doi.org/10.1016/j.electstud.2015.03.019">The dynamic battle for pieces of pie--Modeling party support in multi-party nations</a>." Electoral Studies 39:264-274.</p>
 
 <p>Tomz, Michael, Jason Wittenberg and Gary King. 2003. "CLARIFY: Software for interpreting and presenting statistical results." Journal of Statistical Software 8(1):1-30.</p>
 
 <h3>
 <a id="examples" class="anchor" href="#examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Examples</h3>
 
-<p>open the UK data from Philips, Rutherford, &amp; Whitten (2015a)</p>
+<p>Open the UK data from Philips, Rutherford, &amp; Whitten (2016), which contains data on the proportion of support for the Conservatives (<code>Con</code>), Liberal Democrats (<code>Ldm</code>), and Labour (<code>Lab</code>), during the New Labour government period.</p>
 
 <pre><code>use UK_AJPS.dta, clear
 </code></pre>
 
-<p>a 1 standard deviation increase of labour as best manager of the economy at t = 9 with 90% cis</p>
+<p>a 1 standard deviation increase of labour as best manager of the economy at t = 9 with 90% cis. By specifying the <code>graph</code> option, <code>dynsimpie</code> automatically produces a time-series plot of the simulations. Note that the results from the seemingly unrelated regression equations are also shown.</p>
 
 <pre><code>dynsimpie all_pidW all_LabLeaderEval_W all_ConLeaderEval_W all_LDLeaderEval_W all_nat_retW, ///
- dvs(Con_Lab lDM_Lab) t(9) shock(0.054) shockvar(all_b_mii_lab_pct) sig(90)
+ dvs(Lab Con Ldm) t(9) shock(0.054) shockvar(all_b_mii_lab_pct) sig(90) graph
 </code></pre>
 
-<p>open and graph the results</p>
+<p><img src="https://github.com/andyphilips/dynsimpie/blob/gh-pages/figures/graph1a.png" alt="alt text" title="First simulation results"></p>
+
+<p>Alternatively, we can open the dataset that <code>dynsimpie</code> produces and graph the results:</p>
 
 <pre><code>use dynsimpie_results.dta, clear
 twoway rspike var1_pie_ul_ var1_pie_ll_ time || rspike var2_pie_ul_ var2_pie_ll_ time ||   ///
@@ -102,13 +104,13 @@ twoway rspike var1_pie_ul_ var1_pie_ll_ time || rspike var2_pie_ul_ var2_pie_ll_
  ytitle("Predicted Proportion of Support")
 </code></pre>
 
-<img src="https://raw.githubusercontent.com/andyphilips/dynsimpie/gh-pages/figures/graph1.png" alt="graph 1">
+<p><img src="https://github.com/andyphilips/dynsimpie/blob/gh-pages/figures/graph1b.png" alt="alt text" title="First simulation results"></p>
 
-<p>a 1 std. dev. increase of labour as best manager of the economy along with a 1 std. dev increase in labour leader evaluations at time t= 18 and range t=45</p>
+<p>a 1 standard deviation increase of survey respondents who think Labour is the best manager of the economy, along with a 1 standard deviation increase in Labour leader evaluations at time t= 18 with range t=45.</p>
 
 <pre><code>dynsimpie all_pidW all_ConLeaderEval_W all_LDLeaderEval_W all_nat_retW ,                  ///
- dvs(Con_Lab lDM_Lab) t(18) range(45) shock(0.054) shockvar(all_b_mii_lab_pct)            ///
- shockvar2(all_LabLeaderEval_W) shock2(0.367)
+ dvs(Lab Con Ldm) t(18) range(45) shock(0.054) shockvar(all_b_mii_lab_pct)            ///
+ shockvar2(all_LabLeaderEval_W) shock2(0.367) nograph
 use dynsimpie_results.dta, clear
 twoway rspike var1_pie_ul_ var1_pie_ll_ time || rspike var2_pie_ul_ var2_pie_ll_ time ||  ///
  rspike var3_pie_ul_ var3_pie_ll_ time || scatter mid1 time || scatter mid2 time ||       ///
@@ -116,7 +118,7 @@ twoway rspike var1_pie_ul_ var1_pie_ll_ time || rspike var2_pie_ul_ var2_pie_ll_
  ytitle("Predicted Proportion of Support")
 </code></pre>
 
-<img src="https://raw.githubusercontent.com/andyphilips/dynsimpie/gh-pages/figures/graph2.png" alt="graph 2">
+<p><img src="https://github.com/andyphilips/dynsimpie/blob/gh-pages/figures/graph2.png" alt="alt text" title="Second simulation results"></p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/andyphilips">andyphilips</a></p>
@@ -124,6 +126,16 @@ twoway rspike var1_pie_ul_ var1_pie_ll_ time || rspike var2_pie_ul_ var2_pie_ll_
       </footer>
     </div>
     <script src="javascripts/scale.fix.js"></script>
-    
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-69617401-3");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
   </body>
 </html>
