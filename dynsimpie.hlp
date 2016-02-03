@@ -3,11 +3,14 @@
 {findalias asfradohelp}{...}
 {vieweralsosee "" "--"}{...}
 {vieweralsosee "[R] help" "help help"}{...}
-{viewerjumpto "Syntax" "examplehelpfile##syntax"}{...}
-{viewerjumpto "Description" "examplehelpfile##description"}{...}
-{viewerjumpto "Options" "examplehelpfile##options"}{...}
-{viewerjumpto "Remarks" "examplehelpfile##remarks"}{...}
-{viewerjumpto "Examples" "examplehelpfile##examples"}{...}
+{viewerjumpto "Syntax" "dynsimpie##syntax"}{...}
+{viewerjumpto "Description" "dynsimpie##description"}{...}
+{viewerjumpto "Options" "dynsimpie##options"}{...}
+{viewerjumpto "Authors" "dynsimpie##authors"}{...}
+{viewerjumpto "Reference" "dynsimpie##reference"}{...}
+{viewerjumpto "Citations" "dynsimpie##citations"}{...}
+{viewerjumpto "Examples" "dynsimpie##examples"}{...}
+{viewerjumpto "Version" "dynsimpie##version"}{...}
 {title:Title}
 
 {phang}
@@ -30,9 +33,10 @@
 {synopt:{opth dvs(varlist)}}a list of the compositional dependent variables{p_end}
 {synopt:{opth shockvar(varname)}}independent variable that is to be shocked (variable cannot be included in {cmd:varlist}){p_end}
 {synopt:{opth sh:ock(#)}}amount to shock {cmd:shockvar(varname)}{p_end}
-{synopt:{opth t:ime(#)}}scenario time in which the shock occurs (default is 10){p_end}
 
 {syntab:Additional options}
+{synopt:{opth t:ime(#)}}scenario time in which the shock occurs (default is 10){p_end}
+{synopt:{opt graph}}display plot of the simulated output{p_end}
 {synopt:{opth saving(string)}}specifies the name of the output file (default is "dynsimpie_results.dta"){p_end}
 {synopt:{opth range(#)}}length of scenario to simulate (default is 20){p_end}
 {synopt:{opth sig(#)}}significance level for confidence intervals  (default is 95%){p_end}
@@ -42,6 +46,8 @@
 {synopt:{opth shock2(numlist)}}amount to shock {cmd:shockvar2(varname)}{p_end}
 {synopt:{opth shockvar3(varname)}}additional independent variable that is to be shocked (variable cannot be included in {cmd:varlist}){p_end}
 {synopt:{opth shock3(numlist)}}amount to shock {cmd:shockvar3(varname)}{p_end}
+{synopt:{opt notab:le}}suppresses automatic generation of SUR results{p_end}
+{synopt:{opt nosa:ve}}suppresses automatically saving output to new dataset{p_end}
 {synoptline}
 {p2colreset}{...}
 {p 4 6 2}
@@ -51,13 +57,16 @@
 {title:Description}
 
 {pstd}
-{cmd:dynsimpie} is a program to dynamically examine compositional dependent variables, first detailed in Philips, Rutherford, and Whitten (2015a) and used in Philips, Rutherford, and Whitten (2015b). Their modeling strategy uses an error correction model within a seemingly unrelated regression to simulate dynamic changes in each compositional dependent variable in response to a counterfactual "shock" to an independent variable during the simulation. Up to seven dependent variables may be modeled. Following the work of Aitchison (1986), the dependent variables are first expressed using a log-ratio transformation. {cmd:dynsimpie} then models the first differenced series of each compositional ratios as a function of their lag, as well as the lag and first difference of a vector of independent variables. Expected values are calculated, and, since compositional log ratios are not particularly intuitive, these are then "un-transformed" and the predicted average proportion of each dependent variable over time is saved to a dataset, along with associated confidence intervals.
+{cmd:dynsimpie} is a program to dynamically examine compositional dependent variables as detailed in Philips, Rutherford, and Whitten (2016) and used in Philips, Rutherford, and Whitten (2015). Their modeling strategy uses an error correction model within a seemingly unrelated regression to simulate dynamic changes in each compositional dependent variable in response to a counterfactual "shock" to an independent variable during the simulation. Up to seven dependent variables may be modeled. Following the work of Aitchison (1986), {cmd:dynsimpie} first expresses the dependent variables as a composition using a log-ratio transformation. {cmd:dynsimpie} then models the first differenced series of each compositional ratio as a function of their lag, as well as the lag and first difference of a vector of independent variables. Expected values are calculated, and, since compositional log ratios are not particularly intuitive, these are then "un-transformed" and the predicted average proportion of each dependent variable over time is saved to a dataset and/or shown graphically, along with associated confidence intervals.
  
 {pstd}
-To use {cmd:dynsimpie}, the user must first download and install the Clarify package by King, Tomz, and Wittenberg (2000) ({it:{help estsimp}}, {it:{help setx}}, and {it:{help tlogit}}). In addition, each variable listed in {cmd:dvs(varlist)} must be expressed in compositional form; this is easily performed using {it:{help tlogit}} (see below in Examples).
+To use {cmd:dynsimpie}, the user must first download and install the Clarify package by King, Tomz, and Wittenberg (2000) ({it:{help estsimp}} and {it:{help setx}}).
 
 {pstd}
-Options on {cmd:dynsimpie} allow for the addition of dummy variables to the model as well as the ability to shock more than one independent variable at the same point in time.
+{opt indepvars} is a list of independent variables to be included in the model. Independent variables only need to be specified in levels. The final list will be one less than the total number of desired independent variables, since one always has to be specified in the {cmd:shockvar} command (see below).
+
+{pstd}
+{cmd:dynsimpie} automatically transforms the dependent variables and independent variables into lags and first differences for estimation in error-correction form. Options on {cmd:dynsimpie} allow for the addition of dummy variables to the model as well as the ability to shock more than one independent variable at the same point in time.
 
 {marker options}{...}
 {title:Options}
@@ -66,28 +75,32 @@ Options on {cmd:dynsimpie} allow for the addition of dummy variables to the mode
 
 {phang}
 {opth dvs(varlist)}
-is a list of the compositional dependent variables to be estimated in the model. These must be expressed as the the log of the proportion of each category relative to the proportion of an arbitrary "baseline" category; for example, if there were J dependent variables, {cmd:dvs(varlist)} would consist of J-1 categories of s_{tj} = ln(y_{tj}/y_{tJ}), where the Jth category is the baseline. The reason for this is detailed in Philips, Rutherford, and Whitten (2015a). The {it:{help tlogit}} command greatly aids in this transformation.
+is a list of the compositional dependent variables to be estimated in the model. These must be expressed as either proportions (summing to 1) or as percents (summing to 100). {cmd:dynsimpie} will issue an error message if neither of these criteria are met. {cmd:dynsimpie} will take the log of the proportion of each category relative to the proportion of an arbitrary "baseline" category; for example, if there were J dependent variables in {cmd:dvs(varlist)}, {cmd:dynsimpie} would create J-1 categories of s_{tj} = ln(y_{tj}/y_{tJ}), where the Jth category is the baseline. The reason for this is detailed in Philips, Rutherford, and Whitten (2016).
 
 {phang}
 {opth shockvar(varname)}
-is the independent variable, not included in {cmd:varlist}, that experiences some counterfactual one-period {cmd:shock} at {cmd:time} t. Since this is within an error correction framework, the shock will affect the first differenced {cmd:shockvar} at time t for one period, then move into the lagged {cmd:shockvar} for the rest of the simulation.
+is the independent variable, not included in {cmd:varlist}, that experiences some counterfactual one-period {cmd:shock} at {cmd:time} t. Since this is within an error correction framework, the shock first affects the first difference of {cmd:shockvar} at time t for one period, then will move into the lagged {cmd:shockvar} for the rest of the simulation.
 
 {phang}
 {opth shock(#)}
 is the amount to change {cmd:shockvar} by for one period at {cmd:time} t.
 
+
+{dlgtab:Additional Options}
 {phang}
 {opth time(#)}
 is the time that the variable {cmd:shockvar} experiences a one-period {cmd:shock}. By default, this is set at time period 10.
 
-{dlgtab:Additional Options}
+{phang}
+{opt graph}
+displays a plot of the simulated output. The predicted proportion of each of the compositional dependent variables is plotted against time, along with the associated confidence intervals.
 
 {phang}
 {opth saving(string)}
 specifies the name of the dataset that {cmd:dynsimpie} will save the results to. By default, this is "dynsimpie_results.dta". This dataset contains a time variable, the midpoints, and upper and lower confidence intervals for each dependent variable. This is commonly used for graphing the dynamic simulation results. 
 
 {phang}
-{opt range(#)}
+{opth range(#)}
 gives the length of the scenario to simulate. By default, 20 time periods are simulated. {cmd:range} must be greater than the {cmd:time} at which the shock occurs.
 
 {phang}
@@ -120,6 +133,14 @@ allows for an additional shock to take place at {cmd:time} t. As with {cmd:shock
 {opth shock3(numlist)}
 the amount to shock {cmd:shockvar3(varlist)} by.
 
+{phang}
+{opt notable}
+by default, a table of the estimates is shown. This option suppresses the automatic generation of the SUR results.
+
+{phang}
+{opt nosave}
+by default, {cmd:dynsimpie} will save the results as either "dynsimpie_results.dta" or a user-specified name. This option suppresses this output.
+
 {marker authors}{...}
 {title:Authors}
 
@@ -139,74 +160,50 @@ Guy D. Whitten 	{break}
 Texas A&M University  {break}
 College Station, TX   {p_end}
 
-{marker authors}{...}
+{marker reference}{...}
 {title:Reference}
 
 If you use dynsimpie, please cite us:
 
-{phang}Philips, Andrew Q., Amanda Rutherford, and Guy D. Whitten. 2015 "Dynsimpie: A program to examine dynamic compositional dependent variables"
+{phang}Philips, Andrew Q., Amanda Rutherford, and Guy D. Whitten. 2016 "Dynsimpie: A program to examine dynamic compositional dependent variables". Working Paper.
 
 and:
 
-{phang}Philips, Andrew Q., Amanda Rutherford, and Guy D. Whitten. 2015a. "Dynamic pie: A strategy for modeling trade-offs in compositional variables over time." American Journal of Political Science 1-16.{p_end}
+{phang}Philips, Andrew Q., Amanda Rutherford, and Guy D. Whitten. 2016. "Dynamic pie: A strategy for modeling trade-offs in compositional variables over time." American Journal of Political Science 60(1):268-283.{p_end}
 
 {marker citations}{...}
 {title:Citations}
 
 {phang}Aitchison, John. 1986. The statistical analysis of compositional data. Chapman & Hall, Ltd.{p_end}
 
-{phang}Philips, Andrew Q., Amanda Rutherford, and Guy D. Whitten. 2015a. "Dynamic pie: A strategy for modeling trade-offs in compositional variables over time." American Journal of Political Science 1-16.{p_end}
+{phang}Philips, Andrew Q., Amanda Rutherford, and Guy D. Whitten. 2016. "Dynamic pie: A strategy for modeling trade-offs in compositional variables over time." American Journal of Political Science 60(1):268-283.{p_end}
 
-{phang}Philips, Andrew Q., Amanda Rutherford, and Guy D. Whitten. 2015b. "The dynamic battle for pieces of pie--Modeling party support in multi-party nations." Electoral Studies 39:264-274.{p_end}
+{phang}Philips, Andrew Q., Amanda Rutherford, and Guy D. Whitten. 2015. "The dynamic battle for pieces of pie--Modeling party support in multi-party nations." Electoral Studies 39:264-274.{p_end}
 
 {phang}Tomz, Michael, Jason Wittenberg and Gary King. 2003. "CLARIFY: Software for interpreting and presenting statistical results." Journal of Statistical Software 8(1):1-30.{p_end}
 
 {marker examples}{...}
 {title:Examples}
 
-Example 1
-this is a rather non-sensical example, but it uses the readily available unemployment rates data.
-{phang}{cmd:webuse urates}{p_end}
-
-express our dependent variables (TN, MO, IN, KY) as a proportion of the total:
-{phang}{cmd:gen tot = tenn + missouri + kentucky + indiana}{p_end}
-{phang}{cmd:gen pTN = tenn/tot}{p_end}
-{phang}{cmd:gen pMO = missouri/tot}{p_end}
-{phang}{cmd:gen pKY = kentucky/tot}{p_end}
-{phang}{cmd:gen pIN = indiana/tot}{p_end}
-
-use tlogit (from the Clarify package) to express dependent variables as log ratios. The baseline category is pIN:
-{phang}{cmd:tlogit pTN pTN_pIN pMO pMO_pIN pKY pKY_pIN,base(pIN)}{p_end}
-
-our independent variables are illinois and arkansas--with no shock throughout the simulation.
-{phang}{cmd:dynsimpie illinois, dvs(pTN_pIN pMO_pIN pKY_pIN) shockvar(arkansas) shock(0)}{p_end}
-
-open and graph the results
-{phang}{cmd:use dynsimpie_results.dta, clear}{p_end}
-{phang}{cmd:twoway rspike var1_pie_ll_ var1_pie_ul_ time || rspike var2_pie_ll_ var2_pie_ul_ time || rspike var3_pie_ll_ var3_pie_ul_ time || rspike var4_pie_ll_ var4_pie_ul_ time || scatter mid1 time || scatter mid2 time || scatter mid3 time || scatter mid4 time, legend(order(5 "TN" 6 "MO" 7 "KY" 8 "IN"))}{p_end}
-
-now a 1 standard deviation increase in arkansas' unemployment at time = 8 with 99% CIs
-{phang}{cmd:dynsimpie illinois, dvs(pTN_pIN pMO_pIN pKY_pIN) shockvar(arkansas) shock(1.68) range(25) time(8) sig(99)}{p_end}
-
-open and graph the results
-{phang}{cmd:use dynsimpie_results.dta, clear}{p_end}
-{phang}{cmd:twoway rspike var1_pie_ll_ var1_pie_ul_ time || rspike var2_pie_ll_ var2_pie_ul_ time || rspike var3_pie_ll_ var3_pie_ul_ time || rspike var4_pie_ll_ var4_pie_ul_ time || scatter mid1 time || scatter mid2 time || scatter mid3 time || scatter mid4 time, legend(order(1 "TN" 2 "MO" 3 "KY" 4 "IN"))}{p_end}
-
-Example 2
-open the UK data from Philips, Rutherford, & Whitten (2015a)
+UK Example
+open the UK data from Philips, Rutherford, & Whitten (2016)
 {phang}{cmd:use UK_AJPS.dta, clear}{p_end}
 
-a 1 standard deviation increase of labour as best manager of the economy at t = 9 with 90% cis
-{phang}{cmd:dynsimpie all_pidW all_LabLeaderEval_W all_ConLeaderEval_W all_LDLeaderEval_W all_nat_retW , dvs(Con_Lab lDM_Lab) t(9) shock(0.054) shockvar(all_b_mii_lab_pct) sig(90)}{p_end}
+show the estimated effects of a 1 standard deviation increase (+0.054) of those who think Labour is the best manager of the most important issue at time t = 9.
+{phang}{cmd:dynsimpie all_pidW all_LabLeaderEval_W all_ConLeaderEval_W all_LDLeaderEval_W all_nat_retW, dvs(Con Ldm Lab) t(9) shock(0.054) shockvar(all_b_mii_lab_pct) graph}{p_end}
 
-open and graph the results
+users can also open up the saved data to create customized graphs:
 {phang}{cmd:use dynsimpie_results.dta, clear}{p_end}
-{phang}{cmd:twoway rspike var1_pie_ul_ var1_pie_ll_ time || rspike var2_pie_ul_ var2_pie_ll_ time || rspike var3_pie_ul_ var3_pie_ll_ time || scatter mid1 time || scatter mid2 time || scatter mid3 time, legend( order(4 "Conservatives" 5 "Lib-Dems" 6 "Labour")) xtitle("Month")	ytitle("Predicted Proportion of Support")}{p_end}
+{phang}{cmd:twoway rspike var1_pie_ul_ var1_pie_ll_ time || rspike var2_pie_ul_ var2_pie_ll_ time || rspike var3_pie_ul_ var3_pie_ll_ time || scatter mid1 time || scatter mid2 time || scatter mid3 time, legend( order(4 "Conservatives" 5 "Liberal Democrats" 6 "Labour")) xtitle("Month")	ytitle("Predicted Proportion of Support")}{p_end}
 
-a 1 std. dev. increase of labour as best manager of the economy along with a 1 std. dev increase in labour leader evaluations at time t= 18 and range t=45
-{phang}{cmd:dynsimpie all_pidW all_ConLeaderEval_W all_LDLeaderEval_W all_nat_retW , dvs(Con_Lab lDM_Lab) t(18) range(45) shock(0.054) shockvar(all_b_mii_lab_pct) shockvar2(all_LabLeaderEval_W) shock2(0.367)}{p_end}
+the same shock magnitude as above but with a range of 40 months and changing the shock to occur at month 30. In addition, adding a dummy variable equal to one during the months of the great recession.
+{phang}{cmd:dynsimpie all_pidW all_LabLeaderEval_W all_ConLeaderEval_W  all_LDLeaderEval_W all_nat_retW , dvs(Con Ldm Lab) t(30) range(40) shock(0.054) shockvar(all_b_mii_lab_pct) graph dummy(recession_dum) dummyset(1)}{p_end}
 
-{phang}{cmd:use dynsimpie_results.dta, clear}{p_end}
-{phang}{cmd:twoway rspike var1_pie_ul_ var1_pie_ll_ time || rspike var2_pie_ul_ var2_pie_ll_ time || rspike var3_pie_ul_ var3_pie_ll_ time || scatter mid1 time || scatter mid2 time || scatter mid3 time, legend( order(4 "Conservatives" 5 "Lib-Dems" 6 "Labour")) xtitle("Month")	ytitle("Predicted Proportion of Support")}{p_end}	
+the estimated effects of a one standard deviation increase in the % of those who think Labour is the best manager of the most important issue and a one standard deviation increase in Labour leader evaluations.
+{phang}{cmd:dynsimpie all_pidW all_ConLeaderEval_W all_LDLeaderEval_W all_nat_retW, dvs(Con Ldm Lab) t(18) range(30) shock(0.054) shockvar(all_b_mii_lab_pct) shockvar2(all_LabLeaderEval_W) shock2(0.367) graph}{p_end}
 
 
+{marker version}{...}
+{title:Version}
+
+version 1.3, Feb 02, 2016.
