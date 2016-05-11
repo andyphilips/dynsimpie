@@ -16,6 +16,8 @@
 {phang}
 {bf:dynsimpie} {hline 2} A program to examine dynamic compositional dependent variables
 
+{pstd}
+To use {cmd:dynsimpie}, the user must first download and install the Clarify package by King, Tomz, and Wittenberg (2000) ({it:{help estsimp}} and {it:{help setx}}).
 
 {marker syntax}{...}
 {title:Syntax}
@@ -57,7 +59,7 @@
 {title:Description}
 
 {pstd}
-{cmd:dynsimpie} is a program to dynamically examine compositional dependent variables as detailed in Philips, Rutherford, and Whitten (2016) and used in Philips, Rutherford, and Whitten (2015). Their modeling strategy uses an error correction model within a seemingly unrelated regression to simulate dynamic changes in each compositional dependent variable in response to a counterfactual "shock" to an independent variable during the simulation. Up to seven dependent variables may be modeled. Following the work of Aitchison (1986), {cmd:dynsimpie} first expresses the dependent variables as a composition using a log-ratio transformation. {cmd:dynsimpie} then models the first differenced series of each compositional ratio as a function of their lag, as well as the lag and first difference of a vector of independent variables. Expected values are calculated, and, since compositional log ratios are not particularly intuitive, these are then "un-transformed" and the predicted average proportion of each dependent variable over time is saved to a dataset and/or shown graphically, along with associated confidence intervals.
+{cmd:dynsimpie} is a program to dynamically examine compositional dependent variables as detailed in Philips, Rutherford, and Whitten (2016) and used in Philips, Rutherford, and Whitten (2015). Their modeling strategy uses an error correction model within a seemingly unrelated regression to simulate dynamic changes in each compositional dependent variable in response to a counterfactual "shock" to an independent variable during the simulation. Following the work of Aitchison (1986), {cmd:dynsimpie} first expresses the dependent variables as a composition using a log-ratio transformation. {cmd:dynsimpie} then models the first differenced series of each compositional ratio as a function of their lag, as well as the lag and first difference of a vector of independent variables. Expected values are calculated, and, since compositional log ratios are not particularly intuitive, these are then "un-transformed" and the predicted average proportion of each dependent variable over time is saved to a dataset and/or shown graphically, along with associated confidence intervals.
  
 {pstd}
 To use {cmd:dynsimpie}, the user must first download and install the Clarify package by King, Tomz, and Wittenberg (2000) ({it:{help estsimp}} and {it:{help setx}}).
@@ -165,7 +167,7 @@ College Station, TX   {p_end}
 
 If you use dynsimpie, please cite us:
 
-{phang}Philips, Andrew Q., Amanda Rutherford, and Guy D. Whitten. 2016 "Dynsimpie: A program to examine dynamic compositional dependent variables". Working Paper.
+{phang}Philips, Andrew Q., Amanda Rutherford, and Guy D. Whitten. Forthcoming "Dynsimpie: A program to examine dynamic compositional dependent variables". Stata Journal.
 
 and:
 
@@ -206,4 +208,4 @@ the estimated effects of a one standard deviation increase in the % of those who
 {marker version}{...}
 {title:Version}
 
-version 1.3, Feb 02, 2016.
+version 1.4, May 11, 2016.

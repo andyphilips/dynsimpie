@@ -1,8 +1,8 @@
 *
 *		PROGRAM DYNSIMPIE
 *		
-*		version 1.3
-*		Feb 02, 2016
+*		version 1.4
+*		May 11, 2016
 *
 *		Andrew Q. Philips,
 *		Texas A&M University
@@ -17,9 +17,9 @@
 * -------------------------------------------------------------------------
 	If you use dynsimpie, please cite us:
 
-    Philips, Andrew Q., Amanda Rutherford, and Guy D. Whitten. 2016 
+    Philips, Andrew Q., Amanda Rutherford, and Guy D. Whitten. Forthcoming 
 	"Dynsimpie: A program to dynamically examine compositional dependent
-	variables". Working Paper.
+	variables". Stata Journal.
 	
 	and:
 
@@ -32,7 +32,7 @@
 * -------------------------------------------------------------------------
 capture program drop dynsimpie
 capture program define dynsimpie , rclass
-syntax [varlist] [if] [in], [ dvs(varlist max = 7) shockvar(varname) 	  ///
+syntax [varlist] [if] [in], [ dvs(varlist) shockvar(varname) 	  ///
 Time(numlist integer > 1) SHock(numlist)] 								  ///
 [shockvar2(varname) shock2(numlist)] [shockvar3(varname) shock3(numlist)] ///
 [dummy(varlist)] [dummyset(numlist)] [sig(numlist integer < 100)]		  ///
