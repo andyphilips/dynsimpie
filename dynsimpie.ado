@@ -1,8 +1,8 @@
 *
 *		PROGRAM DYNSIMPIE
 *		
-*		version 1.4
-*		May 11, 2016
+*		version 1.5
+*		Sept 05, 2016
 *
 *		Andrew Q. Philips,
 *		Texas A&M University
@@ -36,7 +36,8 @@ syntax [varlist] [if] [in], [ dvs(varlist) shockvar(varname) 	  ///
 Time(numlist integer > 1) SHock(numlist)] 								  ///
 [shockvar2(varname) shock2(numlist)] [shockvar3(varname) shock3(numlist)] ///
 [dummy(varlist)] [dummyset(numlist)] [sig(numlist integer < 100)]		  ///
-[range(numlist integer > 1)] [saving(string)] [NOTABle] [NOSAve] [graph]
+[range(numlist integer > 1)] [saving(string)] [NOTABle] [NOSAve] [graph]  ///
+[pv ev]
 	 	 
 version 8
 marksample touse
@@ -227,7 +228,12 @@ qui foreach var of varlist `lcomplist'	{
 	loc preddv `"`preddv' `td`i'log1' "'
 	loc i = `i' + 1
 }
-qui simqi, ev genev(`preddv')				// grab our expected values
+if "`pv'" != ""	{
+	qui simqi, pv genpv(`preddv')				// grab our predicted values
+}
+else	{										// else expected values
+	qui simqi, ev genev(`preddv')
+}
 
 loc denominator1
 loc i 1
@@ -287,7 +293,13 @@ qui forv i = 2/`brange' {
 		loc x = `x' + 1
 	}
 	
-	simqi, ev genev(`preddv')			// get new predictions
+	if "`pv'" != ""	{
+		qui simqi, pv genpv(`preddv')				// grab our predicted values
+	}
+	else	{										// else expected values
+		qui simqi, ev genev(`preddv')
+	}
+	
 	loc denominator`i'
 	loc x 1
 	foreach var of varlist `lcomplist'	{
@@ -357,6 +369,12 @@ if "`graph'" != ""	{
 	loc ulll 
 	loc mid "scatter mid1 time"
 	loc legend
+	if "`pv'" != ""	{
+		loc valname "Predicted"
+	}
+	else	{										
+		loc valname "Expected"
+	}
 	forv i = 1/`z'	{
 		loc ulll `"`ulll' || rspike var`i'_pie_ul_ var`i'_pie_ll_ time, lcolor(black) lwidth(thin) "'	
 		if "`i'" > "1"	{
@@ -372,7 +390,7 @@ if "`graph'" != ""	{
 		}
 	}
 	twoway `mid' `ulll' legend(order(`legend' `z' "`base'")) xtitle("Time")  ///
-	ytitle("Predicted Proportion") graphregion(color(white))	///
+	ytitle("`valname' Proportion") graphregion(color(white))	///
 	note("Note: `signif'% confidence intervals") 
 }
 else	{
