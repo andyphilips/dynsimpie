@@ -206,12 +206,12 @@ twoway rspike var1_pie_ul_ var1_pie_ll_ time || rspike var2_pie_ul_ var2_pie_ll_
 
 <pre><code>dynsimpie all_pidW all_ConLeaderEval_W all_LDLeaderEval_W all_nat_retW ,                  ///
  dvs(Lab Con Ldm) t(18) range(45) shock(0.054) shockvar(all_b_mii_lab_pct)            ///
- shockvar2(all_LabLeaderEval_W) shock2(0.367) nograph
+ shockvar2(all_LabLeaderEval_W) shock2(0.367) nograph pv
 use dynsimpie_results.dta, clear
 twoway rspike var1_pie_ul_ var1_pie_ll_ time || rspike var2_pie_ul_ var2_pie_ll_ time ||  ///
  rspike var3_pie_ul_ var3_pie_ll_ time || scatter mid1 time || scatter mid2 time ||       ///
  scatter mid3 time, legend( order(4 "Conservatives" 5 "Lib-Dems" 6 "Labour")) xtitle("Month")    ///
- ytitle("Predicted Proportion of Support") pv
+ ytitle("Predicted Proportion of Support") 
 </code></pre>
 
 <p><img src="https://raw.githubusercontent.com/andyphilips/dynsimpie/gh-pages/figures/graph2b.png" alt="alt text" title="Second simulation results; Predicted Values"></p>
