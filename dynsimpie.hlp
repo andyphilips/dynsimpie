@@ -1,5 +1,5 @@
 {smcl}
-{* *! version 1.2.0  02jun2011}{...}
+{* *! version 1.5.0  05Sept2016}{...}
 {findalias asfradohelp}{...}
 {vieweralsosee "" "--"}{...}
 {vieweralsosee "[R] help" "help help"}{...}
@@ -50,6 +50,7 @@ To use {cmd:dynsimpie}, the user must first download and install the Clarify pac
 {synopt:{opth shock3(numlist)}}amount to shock {cmd:shockvar3(varname)}{p_end}
 {synopt:{opt notab:le}}suppresses automatic generation of SUR results{p_end}
 {synopt:{opt nosa:ve}}suppresses automatically saving output to new dataset{p_end}
+{synopt:{opt pv}}generate predicted values instead of expected values{p_end}
 {synoptline}
 {p2colreset}{...}
 {p 4 6 2}
@@ -142,6 +143,10 @@ by default, a table of the estimates is shown. This option suppresses the automa
 {phang}
 {opt nosave}
 by default, {cmd:dynsimpie} will save the results as either "dynsimpie_results.dta" or a user-specified name. This option suppresses this output.
+
+{phang}
+{opt pv}
+by default, expected values are produced through Clarify. These average out fundamental variability, keeping only estimation uncertainty. Users wishing to analyze both fundamental and estimation uncertainty can do so by generating predicted values with the option {cmd:pv}.
 
 {marker authors}{...}
 {title:Authors}
