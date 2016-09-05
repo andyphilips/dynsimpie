@@ -58,7 +58,7 @@
 <a id="description" class="anchor" href="#description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Description<a id="chapter-1"></a>
 </h3>
 
-<p><code>dynsimpie</code> is a program to dynamically examine compositional dependent variables, detailed in Philips, Rutherford, and Whitten (2016) and used in Philips, Rutherford, and Whitten (2015). Their modeling strategy uses an error correction model within a seemingly unrelated regression to simulate dynamic changes in each compositional dependent variable in response to a counterfactual "shock" to an independent variable during the simulation. Following the work of Aitchison (1986), the program first expresses the dependent variables in compositional form using a log-ratio transformation. <code>dynsimpie</code> then models the first differenced series of each compositional ratio as a function of their lag, as well as the lag and first difference of a vector of independent variables. Expected values are calculated, and, since compositional log ratios are not particularly intuitive, these are then "un-transformed" and the predicted average proportion of each dependent variable over time is either graphed and/or saved to a dataset, along with associated confidence intervals.</p>
+<p><code>dynsimpie</code> is a program to dynamically examine compositional dependent variables, detailed in Philips, Rutherford, and Whitten (2016) and used in Philips, Rutherford, and Whitten (2015). Their modeling strategy uses an error correction model within a seemingly unrelated regression to simulate dynamic changes in each compositional dependent variable in response to a counterfactual "shock" to an independent variable during the simulation. Following the work of Aitchison (1986), the program first expresses the dependent variables in compositional form using a log-ratio transformation. <code>dynsimpie</code> then models the first differenced series of each compositional ratio as a function of their lag, as well as the lag and first difference of a vector of independent variables. Expected values are calculated, and, since compositional log ratios are not particularly intuitive, these are then "un-transformed" and the expected (or predicted) average proportion of each dependent variable over time is either graphed and/or saved to a dataset, along with associated confidence intervals.</p>
 
 <h3>
 <a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirements<a id="requirements"></a>
@@ -122,6 +122,8 @@
 <code>notable</code> by default, a table of the estimates is shown. This option suppresses the automatic generation of the SUR results.</li>
 <li>
 <code>nosave</code> by default, <code>dynsimpie</code> will save the results as either "dynsimpie_results.dta" or a user-specified name. This option suppresses this output.</li>
+<li>
+<code>pv</code> by default, expected values are produced through Clarify. These average out fundamental variability, keeping only estimation uncertainty. Users wishing to analyze both fundamental and estimation uncertainty can do so by generating predicted values with the option <code>pv</code>.</li>
 </ul>
 
 <h3>
