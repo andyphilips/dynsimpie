@@ -1,0 +1,6 @@
+v 1.3
+d dynsimpie: A Stata command to examine dynamic compositional dependent variables
+d Authors: Philips, Andrew Q, Amanda Rutherford, and Guy D. Whitten
+d Last Updated: 10/18/16
+p dynsimpie ado file
+p UK_AJPS Example dataset from Philips, Rutherford, and Whitten (2016)
