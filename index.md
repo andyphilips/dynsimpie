@@ -29,7 +29,7 @@ The most recent version of `dynsimpie` is available on this page. The program ca
 *`dynsimpie` automatically transforms the dependent variables and independent variables into lags and first differences for estimation in error-correction form. Options on `dynsimpie` allow for the addition of dummy variables to the model as well as the ability to shock more than one independent variable at the same point in time.
 
 ## Required options<a id="opt-req"></a>
-* `dvs(varlist)` a list of the compositional dependent variables to be estimated in the model. These must be expressed either as proportions (summing to 1) or as percents (summing to 100). `dynsimpie` will issue an error message if neither of these criteria are met. `dynsimpie` will take the log of the proportion of each category relative to the proportion of an arbitrary "baseline" category; for example, if there were J dependent variables in `dvs(varlist)`, `dynsimpie` would create J-1 categories of s_{tj} = ln(y_{tj}/y_{tJ}), where the Jth category is the baseline. The reason for this is detailed in Philips, Rutherford, and Whitten (2016).
+* `dvs(varlist)` a list of the compositional dependent variables to be estimated in the model. These must be expressed either as proportions (summing to 1) or as percents (summing to 100). `dynsimpie` will issue an error message if neither of these criteria are met. `dynsimpie` will take the log of the proportion of each category relative to the proportion of an arbitrary "baseline" category; for example, if there were J dependent variables in `dvs(varlist)`, `dynsimpie` would create J-1 categories of s_{tj} = ln(y_{tj}/y_{tJ}), where the Jth category is the baseline. The reason for this is detailed in Philips, Rutherford, and Whitten (2016). Note that J must be 3 or more.
 * `shockvar(varname)` is the independent variable, not included in `varlist`, that experiences some counterfactual one-period `shock` at `time` t. Since this is within an error correction framework, the shock first affects the first difference of `shockvar` at time t for one period, then will move into the lagged `shockvar` for the rest of the simulation.
 * `shock( )` amount to change `shockvar(varname)` by for one period at `time` t.
 
@@ -85,7 +85,7 @@ a 1 standard deviation increase of Labour as best manager of the economy at t = 
 dynsimpie all_pidW all_LabLeaderEval_W all_ConLeaderEval_W all_LDLeaderEval_W all_nat_retW, ///
  dvs(Lab Con Ldm) t(9) shock(0.054) shockvar(all_b_mii_lab_pct) graph
 ```
-![alt text](https://raw.githubusercontent.com/andyphilips/dynsimpie/gh-pages/figures/graph1a.png "First simulation results")
+![first sim](https://raw.githubusercontent.com/andyphilips/dynsimpie/gh-pages/figures/graph1a.png "First simulation results")
 
 Alternatively, we can open the dataset that `dynsimpie` produces and graph the results:
 ```
@@ -96,7 +96,7 @@ twoway rspike var1_pie_ul_ var1_pie_ll_ time || rspike var2_pie_ul_ var2_pie_ll_
  ytitle("Predicted Proportion of Support")
 ```
 
-![alt text](https://raw.githubusercontent.com/andyphilips/dynsimpie/gh-pages/figures/graph1b.png "First simulation results-alternative")
+![second sim](https://raw.githubusercontent.com/andyphilips/dynsimpie/gh-pages/figures/graph1b.png "First simulation results-alternative")
 
 a 1 standard deviation increase of survey respondents who think Labour is the best manager of the economy, along with a 1 standard deviation increase in Labour leader evaluations at time t= 18 with range t=45.
 ```
@@ -110,7 +110,7 @@ twoway rspike var1_pie_ul_ var1_pie_ll_ time || rspike var2_pie_ul_ var2_pie_ll_
  ytitle("Predicted Proportion of Support")
 ```
 
-![alt text](https://raw.githubusercontent.com/andyphilips/dynsimpie/gh-pages/figures/graph2.png "Second simulation results")
+![third sim](https://raw.githubusercontent.com/andyphilips/dynsimpie/gh-pages/figures/graph2.png "Second simulation results")
 
 The same as above but generate predicted values instead of expected values.
 ```
@@ -123,7 +123,7 @@ twoway rspike var1_pie_ul_ var1_pie_ll_ time || rspike var2_pie_ul_ var2_pie_ll_
  scatter mid3 time, legend( order(4 "Conservatives" 5 "Lib-Dems" 6 "Labour")) xtitle("Month")    ///
  ytitle("Predicted Proportion of Support") 
 ```
-![alt text](https://raw.githubusercontent.com/andyphilips/dynsimpie/gh-pages/figures/graph2b.png "Second simulation results; Predicted Values")
-
+![fourth sim](https://raw.githubusercontent.com/andyphilips/dynsimpie/gh-pages/figures/graph2b.png "Second simulation results; Predicted Values")
+ 
 ### Example Papers<a id="example-papers"></a>
 Use `dynsimpie` in one of your papers? Let me know (aphilips [AT] pols.tamu.edu) and I will add it to the list below:
