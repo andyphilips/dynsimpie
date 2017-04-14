@@ -1,0 +1,8 @@
+title: Dynsimpie
+description: Stata module to examine dynamic compositional dependent variables
+google_analytics: UA-69617401-3
+show_downloads: true
+theme: jekyll-theme-minimal
+
+gems:
+  - jekyll-mentions
