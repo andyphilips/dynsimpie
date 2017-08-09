@@ -87,18 +87,18 @@ dynsimpie all_pidW all_LabLeaderEval_W all_ConLeaderEval_W all_LDLeaderEval_W al
 ```
 ![first sim](https://raw.githubusercontent.com/andyphilips/dynsimpie/gh-pages/figures/graph1a.png "First simulation results")
 
-Alternatively, we can open the dataset that `dynsimpie` produces and graph the results:
+Alternatively, we can open the dataset that `dynsimpie` produces and graph the results. Note that the program takes the first component in `dvs( )` to use as the baseline. When it gets untransformed, this ends up as the LAST predicted category; since we specified `dvs(Lab Con Ldm)`, `mid1`, `mid2`, and `mid3` correspond with predictions for `Con`, `Ldm`, and `Lab`, respectively. 
 ```
 use dynsimpie_results.dta, clear
 twoway rspike var1_pie_ul_ var1_pie_ll_ time || rspike var2_pie_ul_ var2_pie_ll_ time ||   ///
  rspike var3_pie_ul_ var3_pie_ll_ time || scatter mid1 time || scatter mid2 time ||        ///
- scatter mid3 time, legend( order(4 "Conservatives" 5 "Liber " 6 "Labour")) xtitle("Month")     ///
+ scatter mid3 time, legend( order(4 "Conservatives" 5 "Lib Dems" 6 "Labour")) xtitle("Month")     ///
  ytitle("Predicted Proportion of Support")
 ```
 
 ![second sim](https://raw.githubusercontent.com/andyphilips/dynsimpie/gh-pages/figures/graph1b.png "First simulation results-alternative")
 
-a 1 standard deviation increase of survey respondents who think Labour is the best manager of the economy, along with a 1 standard deviation increase in Labour leader evaluations at time t= 18 with range t=45.
+a 1 standard deviation increase of survey respondents who think Labour is the best manager of the economy, along with a 1 standard deviation increase in Labour leader evaluations at time t=18 with range t=45.
 ```
 dynsimpie all_pidW all_ConLeaderEval_W all_LDLeaderEval_W all_nat_retW ,                  ///
  dvs(Lab Con Ldm) t(18) range(45) shock(0.054) shockvar(all_b_mii_lab_pct)            ///
