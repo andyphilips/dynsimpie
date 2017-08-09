@@ -2,7 +2,7 @@
 A Stata program to examine dynamic compositional dependent variables.
 
 ### Download
-The most recent version of `dynsimpie` is available on this page. The program can also be found on the [SSC RePEc archive](http://EconPapers.repec.org/RePEc:boc:bocode:s458074), though that link is not updated as often.
+The most recent version of `dynsimpie` is available on this page. The program can also be found on the [SSC RePEc archive](http://EconPapers.repec.org/RePEc:boc:bocode:s458074), though that link has not been updated in a while.
 
 ### Table of Contents
   * [Description](#description)
@@ -59,7 +59,7 @@ and
 Philips, Andrew Q., Amanda Rutherford, and Guy D. Whitten. 2016. "[Dynamic pie: A strategy for modeling trade-offs in compositional variables over time](http://dx.doi.org/10.1111/ajps.12204)." American Journal of Political Science 60(1): 268-283.
 
 ### Authors<a id="authors"></a>
-[Andrew Q. Philips](http://people.tamu.edu/~aphilips/), Texas A&M University, College Station, TX. aphilips [AT] pols.tamu.edu
+[Andrew Q. Philips](http://www.andyphilips.com), University of Colorado at Boulder, Boulder, CO. andrew.philips [AT] colorado.edu
 
 Amanda Rutherford, Indiana University, Bloomington, IN
 
